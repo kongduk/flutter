@@ -8,6 +8,12 @@
 편집 실수가 발생되어 불편함을 드려 죄송합니다. 너그러이 양해 부탁드리겠습니다.     
 ```
 
+```text
+플러터 앱 프로그래밍 1판 1쇄 본문 정정 안내(2)
+본문 149쪽의 lib/components/profile_tab.dart 소스코드 전체가 잘못되어서 아래 URL 참고 바랍니다.
+https://github.com/flutter-coder/flutter-book/blob/master/flutter_profile/lib/components/profile_tab.dart
+```
+
 ### 플러터 github 소스코드 다운로드시 실행이 안되다면 아래 참고
 https://getinthere.notion.site/4289dbe401574efe9f1e727b17e24792
 
