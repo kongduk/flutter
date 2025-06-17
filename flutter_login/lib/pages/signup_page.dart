@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/components/custom_form.dart';
+import 'package:flutter_login/components/signup_form.dart';
 import 'package:flutter_login/components/logo.dart';
 import 'package:flutter_login/size.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,9 @@ class LoginPage extends StatelessWidget {
         child: ListView(
           children: [
             SizedBox(height: xlargeGap),
-            Logo("Login"),
-            SizedBox(height: largeGap), // 1. 추가
-            CustomForm(), // 2. 추가
+            Logo("Sign Up"),
+            SizedBox(height: largeGap),
+            SignUpForm(), 
           ],
         ),
       ),
