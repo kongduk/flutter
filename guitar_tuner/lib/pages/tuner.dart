@@ -3,6 +3,7 @@ import '../components/setting.dart';
 import '../components/button.dart';
 import '../components/note.dart';
 import 'intro.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 // StatefulWidget 사용
 class TunerPage extends StatefulWidget {
@@ -18,7 +19,7 @@ class _TunerPageState extends State<TunerPage> {
   String _currentNote = '대기 중...';
   double _currentFrequency = 0.0;
   double _tuningAccuracy = 0.0;
-  
+
   bool _showIntro = true;
 
   @override
@@ -38,7 +39,7 @@ class _TunerPageState extends State<TunerPage> {
     }
 
     final result = _noteService.analyzeNote(frequency);
-    
+
     setState(() {
       _currentNote = result.note;
       _currentFrequency = frequency;
@@ -46,16 +47,27 @@ class _TunerPageState extends State<TunerPage> {
     });
   }
 
+  Future<void> _requestMicPermission() async {
+    var status = await Permission.microphone.status;
+    if (!status.isGranted) {
+      status = await Permission.microphone.request();
+      if (!status.isGranted) {
+        throw Exception('마이크 권한이 필요합니다.');
+      }
+    }
+  }
+
   void _startListening() async {
     try {
+      await _requestMicPermission();
       await _noteService.startListening();
       setState(() {
         _isListening = true;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('시작 실패: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('시작 실패: $e')));
     }
   }
 
@@ -69,9 +81,9 @@ class _TunerPageState extends State<TunerPage> {
         _tuningAccuracy = 0.0;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('중지 실패: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('중지 실패: $e')));
     }
   }
 
@@ -86,10 +98,7 @@ class _TunerPageState extends State<TunerPage> {
             },
           )
         : Scaffold(
-            appBar: AppBar(
-              title: const Text('기타 튜너'),
-              centerTitle: true,
-            ),
+            appBar: AppBar(title: const Text('기타 튜너'), centerTitle: true),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -118,4 +127,4 @@ class _TunerPageState extends State<TunerPage> {
     }
     super.dispose();
   }
-} 
+}

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 // StatefulWidget 사용
 class Web extends StatefulWidget {
-  const Web({Key? key}) : super(key: key);
+  const Web({super.key});
 
   @override
   State<Web> createState() => _WebTunerPageState();
